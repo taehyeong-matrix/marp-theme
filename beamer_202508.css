@@ -1,0 +1,466 @@
+/* -----------------------------------------------------
+   0) 테마 선언 · Import
+   ----------------------------------------------------- */
+/* @theme beamer_202508 */
+@import "default";
+/* @import "gaia"; */
+
+
+/* -----------------------------------------------------
+   1) 전역 폰트 · 색 변수
+   ----------------------------------------------------- */
+:root {
+  font-family: "CMU Sans Serif", "Segoe UI", Helvetica, sans-serif;
+  --beamer-main: #1f38c5;
+  --beamer-secondary: #141414;
+  --beamer-text-color: rgb(44, 44, 44);
+  counter-reset: box; 
+  /* 전역 카운터 — n 없을 때 자동 증가 대비 */
+}
+
+
+/* -----------------------------------------------------
+   2) 블록 인용(quote)
+   ----------------------------------------------------- */
+blockquote {
+  border-left: none;
+  max-width: 85%;
+  border-top: 0.1em dashed #555;
+  position: absolute;
+  bottom: 30px;
+  font-size: 0.5em; /* 인용 글자 크기 */
+}
+blockquote::before { content: ""; }
+blockquote::after  { content: ""; }
+
+
+/* -----------------------------------------------------
+   3) 슬라이드 배경 · 하단 바 · 패딩
+   ----------------------------------------------------- */
+section{
+  background: #fff;
+  background-image: linear-gradient(to right, #141414 50%, #1f38c5 50%);
+  background-size: 100% 1em;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+}
+
+/* 페이지 번호(마르핏 기본 제공 속성 활용) */
+section::after {
+  font-size: 0.6em;
+  content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total);
+  position: absolute;
+  text-align: right;
+  top: 96.2%;
+  width: 100%;
+  right: 0;
+  left: -0.5em;
+  color: white;
+}
+
+
+/* -----------------------------------------------------
+   4) 헤더/푸터 고정 위치
+   ----------------------------------------------------- */
+header {
+  font-size: 0.6em;
+  text-align: right;
+  position: absolute;
+  top: 96.2%;
+  width: 100%;
+  right: 0;
+  left: -51%;
+  color: white;
+}
+
+footer {
+  font-size: 0.6em;
+  position: absolute;
+  text-align: left;
+  top: 96.2%;
+  width: 100%;
+  right: 0;
+  left: 50.8%;
+  color: white;
+}
+
+
+/* -----------------------------------------------------
+   5) 제목 계층 색상
+   ----------------------------------------------------- */
+h2 { color: rgb(35, 38, 170); }
+h3 { color: rgb(47, 115, 182); }
+h4, h5, h6 { color: #141414; }
+
+/* 첫 번째 h1을 상단 띠로 활용 */
+h1:nth-of-type(1) {
+  font-family: "CMU Bright", "Segoe UI Semibold";
+  color: #ffffff;
+  background-color: var(--beamer-main);
+  border-top: 0.3em solid var(--beamer-main);
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 1.5em;
+  text-indent: 0.5em;
+}
+
+
+/* -----------------------------------------------------
+   6) 코드, 수식, 이미지 보조 스타일
+   ----------------------------------------------------- */
+code { background-color: rgba(100, 100, 100, 0.2); }
+
+.katex { /* 인라인 수식 크기 조정 */
+  font: normal 1.05em KaTeX_Main, 'Times New Roman', serif;
+}
+
+/* alt에 "center" 포함 시 중앙 정렬 */
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+  background-color: transparent !important;
+}
+
+
+/* -----------------------------------------------------
+   7) 일반 슬라이드의 순서 목록 스타일( (1), (2) ... )
+   ----------------------------------------------------- */
+section ol {
+  list-style: none;
+  counter-reset: item;
+  padding-left: 1.5em;
+}
+section ol > li {
+  counter-increment: item;
+  position: relative;
+  margin-bottom: 0.5em;
+}
+section ol > li::before {
+  content: "(" counter(item) ") ";
+  position: absolute;
+  left: -1.5em;
+  font-weight: bold;
+  color: #1f38c5;
+}
+
+
+/* -----------------------------------------------------
+   8) 타이틀 슬라이드(section.title)
+   ----------------------------------------------------- */
+section.title{
+  --title-accent: #0056B3;             /* 타이틀 강조색 */
+  --muted-ink: #555;                   /* 보조 글자색 */
+  --title-width: clamp(320px, 90vw, 1100px); /* 텍스트 길이와 무관한 고정 너비 */
+  min-height: 110vh;
+  box-sizing: border-box;
+  display: grid;
+  grid-auto-rows: max-content;
+  align-content: center;   /* 수직 중앙 정렬 */
+  justify-items: center;   /* 가로 중앙 정렬 */
+  gap: 2.0vh;              /* 블록 간 간격 */
+  padding: 6vh 0;          /* 상하 여백 */
+}
+
+/* 공통: 선택 숨김 */
+section.title > *[hidden]{ display:none !important; }
+
+/* 커스텀 태그 블록화 (inline 요소 제외) */
+section.title > authors,
+section.title > affiliations,
+section.title > conf,
+section.title > date{ display:block; }
+
+/* ===== Title (Markdown의 # ... -> h1) ===== */
+section.title>h1 {
+  font-family: "CMU Bright", "Segoe UI Semibold";
+  color: #ffffff;
+  background-color: var(--beamer-main);
+  border-radius: 25px;
+  text-align: center;
+  top: 17%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  padding-bottom: 0.2em;
+  height: auto;
+  box-shadow: 12px 12px 10px rgba(0,0,0,.30);
+}
+
+/* ===== Authors ===== */
+section.title > authors{
+  margin: 0;
+  width: var(--title-width);       /* 고정 너비 */
+  max-width: none;
+  text-align:center;
+  font-size: clamp(18px, 3.2vw, 35px);
+  line-height: 1.25;
+}
+/* a 또는 span 사용 가능, data-aff 상단 표기 */
+section.title > authors a,
+section.title > authors span{
+  display:inline-block; margin:0 .15em; text-decoration:none; color:inherit;
+}
+section.title > authors a::after,
+section.title > authors span::after{
+  content: attr(data-aff);
+  font-size:.6em; vertical-align:super; margin-left:.15em; color:#333;
+}
+
+/* 강조용 커스텀 인라인 태그 <blue> */
+section.title blue{ color: var(--title-accent); }
+
+/* ===== Affiliations ===== */
+section.title > affiliations{
+  margin: 0;
+  width: var(--title-width);       /* 고정 너비 */
+  max-width: none;
+  text-align:center;
+  font-size: clamp(14px, 2.2vw, 25px);
+  line-height:1.2; color:#444;
+}
+section.title > affiliations > aff{ display:block; margin:.15em 0; }
+section.title > affiliations > aff::before{
+  content: attr(data-id);
+  font-size:.7em; vertical-align:super; margin-right:.35em; color:#333;
+}
+
+/* ===== Conference ===== */
+section.title > conf{
+  margin: 0;
+  width: var(--title-width);       /* 고정 너비 */
+  max-width: none;
+  text-align: center;
+  font-size: clamp(16px, 2.5vw, 30px);
+  font-weight: 700;
+  padding: .3em .6em;
+  border-radius: 6px;
+}
+
+/* ===== Date ===== */
+section.title > date{
+  margin: 0;
+  width: var(--title-width);       /* 고정 너비 */
+  max-width: none;
+  text-align: center;
+  font-size: clamp(14px, 2vw, 25px);
+  color: var(--muted-ink);
+}
+
+
+/* -----------------------------------------------------
+   9) 목차 슬라이드(section.contents) — Beamer Madrid 스타일
+   ----------------------------------------------------- */
+section.contents {
+  --beam-blue: #2f3db9;
+  --beam-blue-light: #6f74e8;
+  --beam-blue-dark: #1f2a96;
+  --badge-ring: #d9d9e5;
+  --text: #000;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  line-height: 1.2;              /* 본문 줄높이 = 글자 크기의 1.2배 */
+}
+
+/* 1단계 목록 기본 */
+section.contents > ol {
+  list-style: none;
+  counter-reset: num;
+  padding-left: 3.0em;           /* 컨테이너 왼쪽 들여쓰기 3글자 폭: 배지 + 여백 확보 */
+  font-weight: bold;
+  font-size: 35px;               /* 1단계 항목 기본 글자 크기 */
+}
+
+/* 1단계 항목 */
+section.contents > ol > li {
+  counter-increment: num;
+  position: relative;
+  padding-left: 2.0em;           /* 배지 지름+간격만큼 텍스트 들여쓰기 */
+  margin: 0.28em 0;              /* 초기 세로 간격(아래 margin-block이 재정의) */
+  margin-block: 0.6em;           /* 실제 위아래 간격: 글자 높이의 0.6배 */
+}
+
+/* 1단계 번호 배지: Madrid 파란 '정원' */
+section.contents > ol > li::before {
+  content: counter(num);
+  position: absolute;
+  left: 0.0em;                   /* 항목의 왼쪽 경계에 맞춤 */
+  top: 0.05em;                   /* 베이스라인과 시각적 정렬 위한 미세 상향(0.05em) */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;                  /* 배지 지름 */
+  height: 1.5em;                 /* 배지 지름 */
+  aspect-ratio: 1 / 1;           /* 원형 비율 유지 */
+  padding: 0;                    /* 내부 여백 없음 */
+  border-radius: 50%;            /* 완전한 원 */
+  box-sizing: border-box;
+  line-height: 1.5;              /* 배지 내부 라인박스 높이 = 1.5em (flex로 영향 적음) */
+  color: #fff;
+  font-weight: 500;              /* 숫자 굵기 700 */
+  font-size: 0.9em;              /* 숫자 크기 축소(두 자리 수 대비) */
+  background: linear-gradient(to bottom, var(--beam-blue-light), var(--beam-blue));
+  box-shadow:
+    inset 0 0 0 2px var(--badge-ring), /* 안쪽 링 두께 2px */
+    0 1px 2px rgba(0,0,0,0.25);        /* 그림자: y오프셋 1px, 블러 2px */
+}
+
+/* 1단계 텍스트(링크 포함) 색상 */
+section.contents > ol > li,
+section.contents > ol > li > a,
+section.contents > ol > li > .section-title {
+  color: var(--beam-blue);
+  text-decoration: none;
+  font-weight: 500;              /* 중간 굵기 */
+}
+
+/* 2단계 목록 */
+section.contents > ol > li > ol {
+  list-style: none;
+  padding-left: 3.2em;           /* 1단계 번호와 시각적 정렬(1단계보다 0.2em 추가) */
+  margin: 0.35em 0 0;            /* 위쪽만 0.35em 간격, 좌우/아래 0 */
+  font-size: 30px;               /* 2단계 글자 크기 */
+  font-weight: 400;              /* 보통 굵기 */
+  color: #000;
+}
+
+/* 2단계 항목 */
+section.contents > ol > li > ol > li {
+  display: flex;
+  align-items: center;           /* 불릿과 텍스트 세로 가운데 정렬 */
+  padding-left: 0.0em;               /* 절대배치 제거에 따른 여백 제거 */
+  margin: 0.28em 0.0em;              /* 항목 간 세로 간격 */
+  line-height: 1.2;              /* 줄높이 1.2배 */
+}
+
+/* 2단계 불릿: 글자 없는 파란 원 */
+section.contents > ol > li > ol > li::before {
+  content: "";
+  display: inline-block;         /* flex 아이템으로 배치 */
+  flex: 0 0 0.55em;              /* grow 0, shrink 0, 기준 너비 0.55em */
+  width: 0.55em;                 /* 불릿 지름 */
+  height: 0.55em;                /* 불릿 지름 */
+  border-radius: 50%;            /* 원형 불릿 */
+  background: var(--beam-blue, #2f3db9);
+}
+
+
+/* -----------------------------------------------------
+   10) 인라인 색 강조 태그(red/blue/green/o)
+   ----------------------------------------------------- */
+red   { font-weight: bold; color: rgb(210, 22, 53); }
+blue  { font-weight: bold; color: #1f38c5; }
+green { font-weight: bold; color: rgb(11, 85, 2); }
+o     { color: rgb(210, 114, 54); }
+
+
+/* -----------------------------------------------------
+   11) 박스류 구성(box, goal, thm, prop, ex)
+   ----------------------------------------------------- */
+/* 라벨 색상 기본값 */
+box  { --label-color: rgb(31, 58, 138); }
+goal { --label-color: rgb(185, 28, 28); }
+prop  { --label-color: rgb(31, 58, 138); }
+thm { --label-color: rgb(67, 56, 202); }
+ex   { --label-color: rgb(22, 101, 52); }
+
+/* 공통 박스 */
+goal, thm, prop, ex {
+  display:block; 
+  width:95%;                 /* 부모 너비의 95%로 설정 */
+  margin: 0.5em auto 1.4em;   /* 위 2.4em, 좌우 auto(가운데 정렬), 아래 1.4em */
+  padding: 0.0em 1.2em 0.5em; /* 위 1.1em, 좌우 1.2em, 아래 1.2em */
+  /* border:2px solid var(--label-color); */ /* 테두리 두께 2px */
+  border-radius:10px;        /* 모서리 둥글기 10px */
+  background:#f8f8fb; color:#000;
+  position:relative; 
+  /* box-shadow:0 6px 0 rgba(0,0,0,.25); */ /* x 0px, y 6px, 블러 0px, 투명도 0.25 */
+  box-shadow:12px 12px 10px rgba(0,0,0,.30); /* x 12px, y 12px, 블러 10px, 투명도 0.30 */
+  padding-top:3.0em;         /* 본문 시작을 상단에서 3.0em 내려 배치(헤더와 겹침 방지) */
+}
+
+box{
+  display:block; 
+  width:95%;                 /* 부모 너비의 95%로 설정 */
+  margin: 0.5em auto 1.4em;   /* 위 2.4em, 좌우 auto(가운데 정렬), 아래 1.4em */
+  padding: 0.0em 1.2em 0.5em; /* 위 1.1em, 좌우 1.2em, 아래 1.2em */
+  /* border:2px solid var(--label-color); */ /* 테두리 두께 2px */
+  border-radius:10px;        /* 모서리 둥글기 10px */
+  background:#f8f8fb; color:#000;
+  position:relative; 
+  /* box-shadow:0 6px 0 rgba(0,0,0,.25); */ /* x 0px, y 6px, 블러 0px, 투명도 0.25 */
+  box-shadow:12px 12px 10px rgba(0,0,0,.30); /* x 12px, y 12px, 블러 10px, 투명도 0.30 */
+  padding-top: 1.0em;         /* 본문 시작을 상단에서 3.0em 내려 배치(헤더와 겹침 방지) */
+}
+
+/* 헤더 바 */
+goal::before, thm::before, prop::before, ex::before {
+  position:absolute; 
+  left:-2px;                 /* 왼쪽으로 2px 확장(헤더 테두리와 본문 경계 맞춤) */
+  /* top:calc(-2.2rem - 2px); */
+  top:0em;                   /* 상단 기준 0em에 배치(박스 내부 꼭대기) */
+  width:calc(100% + 4px);    /* 본문 너비 100% + 좌우 테두리 2px씩 합계 4px 보정 */
+  height:2.2rem;             /* 헤더 바 높이 2.2rem */
+  display:flex; 
+  align-items:center; 
+  padding:0em .9em;          /* 세로 0em, 좌우 0.9em 내부 여백 */
+  box-sizing:border-box;
+  background:var(--label-color); 
+  color:#fff; 
+  font-weight:700; 
+  font-size:1.05rem;         /* 헤더 글꼴 크기 루트의 1.05배 */
+  border:2px solid var(--label-color); /* 테두리 두께 2px */
+  border-bottom:none;
+  border-radius:12px 12px 0 0;/* 좌상단 12px, 우상단 12px, 하단 0 */
+  box-shadow:0 3px 0 rgba(0,0,0,.25); /* x 0px, y 3px, 블러 0px, 투명도 0.25 */
+  z-index:1;                 /* 겹침 순서 1(본문 위에 오도록) */
+}
+
+/* 목록 마커 색 */
+box li::marker, goal li::marker, thm li::marker, prop li::marker, ex li::marker {
+  color:var(--label-color);
+}
+
+/* 라벨 텍스트 생성(n 속성 유무 반영) */
+goal[n]::before { content: "Goal " attr(n) ". " attr(title); }
+goal:not([n])::before { content: "Goal" ". " attr(title); }
+
+thm[n]::before  { content: "Theorem " attr(n) ". " attr(title); }
+thm:not([n])::before { content: "Theorem" ". " attr(title); }
+
+prop[n]::before { content: "Proposition " attr(n) ". " attr(title); }
+prop:not([n])::before { content: "Proposition" ". " attr(title); }
+
+ex[n]::before   { content: "Example " attr(n) ". " attr(title); }
+ex:not([n])::before { content: "Example" ". " attr(title); }
+
+
+/* -----------------------------------------------------
+   12) 기타 인라인 강조
+   ----------------------------------------------------- */
+strong { color: #1f38c5; font-weight: bold; }
+
+
+/* -----------------------------------------------------
+   13) Subsection 전용(가운데 정렬 + 큰 글꼴)
+   ----------------------------------------------------- */
+section.subsection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  background: #ffffff;
+  padding: 0;
+  font-size: 50px;
+  font-family: "CMU Sans Serif", "Segoe UI", Helvetica, sans-serif;
+}
+section.subsection h1 {
+  margin: 0;
+  font-size: 1.4em;
+  font-weight: 700;
+}

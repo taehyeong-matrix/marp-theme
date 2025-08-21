@@ -272,7 +272,7 @@ section.contents > ol {
   counter-reset: num;
   padding-left: 3.0em;           /* 컨테이너 왼쪽 들여쓰기 3글자 폭: 배지 + 여백 확보 */
   font-weight: bold;
-  font-size: 35px;               /* 1단계 항목 기본 글자 크기 */
+  font-size: 28px;               /* 1단계 항목 기본 글자 크기 */
 }
 
 /* 1단계 항목 */

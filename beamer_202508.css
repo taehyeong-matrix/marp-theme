@@ -437,8 +437,8 @@ def:not([n])::before { content: "Definition" ". " attr(title); }
 thm[n]::before  { content: "Theorem " attr(n) ". " attr(title); }
 thm:not([n])::before { content: "Theorem" ". " attr(title); }
 
-lem[n]::before  { content: "Theorem " attr(n) ". " attr(title); }
-lem:not([n])::before { content: "Theorem" ". " attr(title); }
+lem[n]::before  { content: "Lemma " attr(n) ". " attr(title); }
+lem:not([n])::before { content: "Lemma" ". " attr(title); }
 
 prop[n]::before { content: "Proposition " attr(n) ". " attr(title); }
 prop:not([n])::before { content: "Proposition" ". " attr(title); }

@@ -366,11 +366,12 @@ box  { --label-color: rgb(31, 58, 138); }
 goal { --label-color: rgb(185, 28, 28); }
 prop  { --label-color: rgb(31, 58, 138); }
 thm { --label-color: rgb(67, 56, 202); }
+lem { --label-color: rgb(67, 56, 202); }
 def { --label-color: rgb(67, 56, 202); }
 ex   { --label-color: rgb(22, 101, 52); }
 
 /* 공통 박스 */
-goal, def, thm, prop, ex {
+goal, def, thm, lem, prop, ex {
   display:block; 
   width:95%;                 /* 부모 너비의 95%로 설정 */
   margin: 0.5em auto 1.4em;   /* 위 2.4em, 좌우 auto(가운데 정렬), 아래 1.4em */
@@ -399,7 +400,7 @@ box{
 }
 
 /* 헤더 바 */
-goal::before, def::before, thm::before, prop::before, ex::before {
+goal::before, def::before, thm::before, lem::before, prop::before, ex::before {
   position:absolute; 
   left:-2px;                 /* 왼쪽으로 2px 확장(헤더 테두리와 본문 경계 맞춤) */
   /* top:calc(-2.2rem - 2px); */
@@ -422,7 +423,7 @@ goal::before, def::before, thm::before, prop::before, ex::before {
 }
 
 /* 목록 마커 색 */
-box li::marker, goal li::marker, def li::marker, thm li::marker, prop li::marker, ex li::marker {
+box li::marker, goal li::marker, def li::marker, thm li::marker, lem li::marker, prop li::marker, ex li::marker {
   color:var(--label-color);
 }
 
@@ -435,6 +436,9 @@ def:not([n])::before { content: "Definition" ". " attr(title); }
 
 thm[n]::before  { content: "Theorem " attr(n) ". " attr(title); }
 thm:not([n])::before { content: "Theorem" ". " attr(title); }
+
+lem[n]::before  { content: "Theorem " attr(n) ". " attr(title); }
+lem:not([n])::before { content: "Theorem" ". " attr(title); }
 
 prop[n]::before { content: "Proposition " attr(n) ". " attr(title); }
 prop:not([n])::before { content: "Proposition" ". " attr(title); }

@@ -366,12 +366,13 @@ box  { --label-color: rgb(31, 58, 138); }
 goal { --label-color: rgb(185, 28, 28); }
 prop  { --label-color: rgb(31, 58, 138); }
 thm { --label-color: rgb(67, 56, 202); }
+blk { --label-color: rgb(67, 56, 202); }
 lem { --label-color: rgb(67, 56, 202); }
 def { --label-color: rgb(67, 56, 202); }
 ex   { --label-color: rgb(22, 101, 52); }
 
 /* 공통 박스 */
-goal, def, thm, lem, prop, ex {
+goal, def, thm, lem, prop, ex, blk {
   display:block; 
   width:95%;                 /* 부모 너비의 95%로 설정 */
   margin: 0.5em auto 1.4em;   /* 위 2.4em, 좌우 auto(가운데 정렬), 아래 1.4em */
@@ -400,7 +401,7 @@ box{
 }
 
 /* 헤더 바 */
-goal::before, def::before, thm::before, lem::before, prop::before, ex::before {
+goal::before, def::before, thm::before, lem::before, prop::before, ex::before, blk::before {
   position:absolute; 
   left:-2px;                 /* 왼쪽으로 2px 확장(헤더 테두리와 본문 경계 맞춤) */
   /* top:calc(-2.2rem - 2px); */
@@ -445,6 +446,8 @@ prop:not([n])::before { content: "Proposition" ". " attr(title); }
 
 ex[n]::before   { content: "Example " attr(n) ". " attr(title); }
 ex:not([n])::before { content: "Example" ". " attr(title); }
+
+blk::before   { content: " attr(title); }
 
 
 /* -----------------------------------------------------
